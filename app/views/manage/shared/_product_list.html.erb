@@ -1,0 +1,35 @@
+<div class="col-1 col-indent">
+  <div class="box">
+    <h3>Categories</h3>
+    <ul class="nostyle categories">
+      <li><%= link_to "All", manage_products_path %>
+      </li>
+      <% for category in @categories %>
+        <li>
+        <%= link_to category.name, manage_category_path(category) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="col-2">
+<%= will_paginate @products %>
+  <% for product in @products %>
+    <div class="catalog2-item">
+
+      <%= link_to image_tag(product.photo.url(:small)), manage_product_path(product), { :class => "catalog2-img"}  %>
+      <div class="details">
+        <%= link_to product.name, manage_product_path(product) %>
+        <br />
+        <%= sanitize(redcloth(product.description)) %>
+      </div>
+
+    </div>
+  <% end %>
+<%= will_paginate @products %>
+</div>
+
+<p class="actions"><%= link_to "Back to Manage", manage_index_path %></p>
+
+

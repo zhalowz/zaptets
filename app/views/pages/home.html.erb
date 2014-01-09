@@ -1,0 +1,165 @@
+<% content_for :page_type do %>page1<% end %>
+
+<% content_for :head do %>
+<%= javascript_include_tag "jquery-1.7.1.min.js" %>
+<%= javascript_include_tag "raphael-min.js" %>
+<%= javascript_include_tag "jquery.easing.js" %>
+<%= javascript_include_tag "iview.js" %>
+<script>
+$(document).ready(function(){
+	$('#iview').iView({
+	pauseTime: 4000,
+	directionNav: false,
+	controlNav: true,
+	tooltipY: -15
+	});
+});
+</script>
+<script>
+$(document).ready(function() {	
+//move the image in pixel	
+var move = -15;		
+//zoom percentage, 1.2 =120%	
+var zoom = 1.2;
+//On mouse over those thumbnail	
+$('.item').hover(function() {			
+//Set the width and height according to the zoom percentage		
+width = $('.item').width() * zoom;		
+height = $('.item').height() * zoom;				
+//Move and zoom the image		
+$(this).find('img').stop(false,true).animate({'width':width, 'height':height, 'top':move, 'left':move}, {duration:200});				
+//Display the caption		
+$(this).find('div.caption').stop(false,true).fadeIn(200);
+	},
+	function() {		
+//Reset the image
+$(this).find('img').stop(false,true).animate({'width':$('.item').width(), 'height':$('.item').height(), 'top':'0', 'left':'0'}, {duration:100});	
+		//Hide the caption
+		$(this).find('div.caption').stop(false,true).fadeOut(200);
+	});
+
+});
+</script>
+
+<% end %>
+
+<% content_for :header do %>	
+  <div class="main">
+    <div class="header">
+		<div class="container">
+		    <div id="iview">
+			<div data-iview:image="../assets/photo1.jpg" data-iview:transition="slice-top-fade,slice-right-fade">
+				<div class="iview-caption caption1" data-x="80" data-y="40">iView<sup>&trade;</sup></div>
+				<div class="iview-caption" data-x="80" data-y="115" data-transition="wipeRight">The world's most awesome jQuery Image & Content Slider</div>			
+			</div>
+
+			<div data-iview:image="../assets/photo2.jpg" data-iview:transition="zigzag-drop-top,zigzag-drop-bottom" data-iview:pausetime="3000">
+				<div class="iview-caption caption5" data-x="60" data-y="40" data-transition="wipeDown">Captions can be positioned and resized freely</div>				
+			</div>
+
+			<div data-iview:image="../assets/photo3.jpg">
+				<div class="iview-caption caption4" data-x="50" data-y="80" data-width="312" data-transition="fade">Some of the Options:</div>
+				<div class="iview-caption blackcaption" data-x="50" data-y="135" data-transition="wipeLeft" data-easing="easeInOutElastic">Touch swipe for iOS and Android devices</div>
+				<div class="iview-caption blackcaption" data-x="50" data-y="172" data-transition="wipeLeft" data-easing="easeInOutElastic">Image And Thumbs Fully Resizable</div>				
+			</div>
+
+			<div data-iview:image="../assets/photo4.jpg">
+				<div class="iview-caption caption7" data-x="0" data-y="0" data-width="180" data-height="480" data-transition="wipeRight"><h3>The Responsive Caption</h3>This is the product that you <b><i>all have been waiting for</b></i>!<br><br>Customize this slider with just a little HTML and CSS to your very needs. Give each slider some captions to transport your message.<br><br></div>
+			</div>
+
+			<div data-iview:image="../assets/photo5.jpg">
+				<div class="iview-caption caption6" data-x="60" data-y="150" data-transition="wipeLeft">What are you waiting for?</div>
+				<div class="iview-caption caption6" data-x="160" data-y="230" data-transition="wipeRight">Get it Now!</div>
+			</div>
+		    </div>
+		</div>   
+    </div>
+</div>
+<% end %>
+
+<div class="col-3">
+    <h1>The best way to cool down in town</h1>
+    <p font-size="18px", line-height="1.2em">Acmeca provides excellent misting & cooling systems for indoor and outdoor cooling. We have the highest quality outdoor cooling fans and mist fans designed specially for your events’ and venues’ needs. We will listen to our client’s needs and go to the extra mile for them to ensure that they enjoy great values and services from us.</p>
+    <div class="item">
+	<img src="assets/HomeRental1.jpg" alt="Cycliner" title="" width="301" height="301"/>
+	<div class="overlay">
+	    <h1 id="red-h">Rentals</h1>	    	   
+	</div>	    
+	<div class="caption" id="red">
+		<h1><%= link_to "Rentals", products_path,{:style=>'color:red;'} %></h1>		
+		<p>Rentals of Products</p>
+	</div>
+    </div>
+
+    <div class="item">
+	<img src="assets/HomeRental2.jpg" alt="Banana Moon" title="" width="301" height="301"/>
+	<div class="overlay">
+	    <h1 id="orange-h">Misting</h1>
+	    <h1 id="orange-h">System</h1>
+	</div>	    
+	<div class="caption" id="orange">
+		<h1><%= link_to "Misting", {:controller => "categories", :action => "show", :only_path => false, :id => 4}, :style=>'color:orange;' %></h1>
+		<h1><%= link_to "System", {:controller => "categories", :action => "show", :only_path => false, :id => 4}, :style=>'color:orange;' %></h1>
+		<p>Text goes here!!</p>	</div>
+    </div>
+
+    <div class="item">
+	<img src="assets/HomeRental3.jpg" alt="BlueBuck" title="" width="301" height="301"/>
+	<div class="overlay">
+            <h1 id="blue-h">Air -</h1>
+	    <h1 id="blue-h">Cooler</h1>
+	</div>
+	<div class="caption" id="blue">
+		<h1><%= link_to "Air -",  {:controller => "categories",  :action => "show", :only_path => false, :id => 1}, :style=>'color:blue;' %></h1>
+		<h1><%= link_to "Cooler",  {:controller => "categories",  :action => "show", :only_path => false, :id => 1}, :style=>'color:blue;' %></h1>
+		<p>Purchase of Air-Cooler</p>
+	</div>
+	
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="item">
+	<img src="assets/HomeRental4.jpg" alt="SOSO" title="" width="301" height="301"/>
+	<div class="overlay">
+	    <h1 id="green-h">Air -</h1>
+	    <h1 id="green-h">Conditioner</h1>
+	</div>	    
+	<div class="caption" id="green">
+		<h1><%= link_to "Air -", {:controller => "categories", :action => "show", :only_path => false, :id => 3},:style=>'color:green;' %></h1>
+		<h1><%= link_to "Conditioner", {:controller => "categories", :action => "show", :only_path => false, :id => 3},:style=>'color:green;' %></h1>
+		<p>Text goes here!!</p>
+	</div>
+    </div>
+
+    <div class="item">
+	<img src="assets/HomeRental5.jpg" alt="Buzzsprout" title="" width="301" height="301"/>
+	<div class="overlay">
+	    <h1 id="yellow-h">Ventilation &</h1>
+	    <h1 id="yellow-h">Fabrication</h1>
+	</div>	    
+	<div class="caption" id="yellow">
+		<h1><%= link_to "Ventilation &", {:controller => "categories", :action => "show", :only_path => false, :id => 6},:style=>'color:gold;' %></h1>
+		<h1><%= link_to "Fabrication", {:controller => "categories", :action => "show", :only_path => false, :id => 6},:style=>'color:gold;' %></h1>
+		<p>Text goes here!!</p>
+	</div>
+    </div>
+
+    <div class="item">
+	<img src="assets/HomeRental6.jpg" alt="Sweetcakes" title="" width="301" height="301"/>
+	<div class="overlay">
+	    <h1 id="purple-h">Others</h1>	 
+	</div>	    
+	<div class="caption" id="purple">
+		<h1><%= link_to "Others", {:controller => "categories",  :action => "show", :only_path => false, :id => 7},:style=>'color:purple;' %></h1>		
+		<p>Text goes here!!</p>
+	</div>
+    </div>
+
+    <div class="clear"></div>
+
+</div>
+
+            <!-- <img src="assets/GrassFooter.jpg"> -->
+		
+	

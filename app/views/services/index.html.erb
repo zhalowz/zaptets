@@ -1,0 +1,54 @@
+<% content_for :head do %>
+<%= javascript_include_tag "effects.js" %>
+  <script> 
+    document.observe('dom:loaded',function() {
+      setInterval(function(){
+        var imgs = $$('.fadein img'), 
+        visible = imgs.findAll(function(img){ return img.visible(); });
+        if(visible.length>1) visible.last().fade({ duration: .3 });
+        else imgs.last().appear({ duration: .3, 
+          afterFinish: function(){ imgs.slice(0,imgs.length-1).invoke('show');  } });
+      }, 3000);
+    });
+  </script>
+<% end %>
+
+<h1>Service & Maintenance</h1>
+<br/>
+
+<div class="col-1 col-indent">
+  <div class="box">
+    <h3>Menu</h3>
+    <ul class="nostyle categories">
+      <li><%= link_to "Rental", rentals_path %></li>
+      <li><%= link_to "Sales/Purchase", sales_path %></li>
+      <li><%= link_to "Service & Maintenance", services_path %></li>
+      <li><%= link_to "Warranty", pages_warranty_path %></li><br/>
+    </ul>
+  </div>
+  <div class="col-1">
+    <div id="main1" class="fadein">
+      <img src="/assets/Service1.jpg">
+      <img src="/assets/Service2.jpg">
+      <img src="/assets/Service3.jpg">
+      <img src="/assets/Service4.jpg">
+      <img src="/assets/Service5.jpg">
+      <img src="/assets/Service6.jpg">
+      <img src="/assets/Service7.jpg">
+      <img src="/assets/Service8.jpg">
+      <img src="/assets/Service9.jpg">
+      <img src="/assets/Service10.jpg">
+      <img src="/assets/Service11.jpg">
+      <img src="/assets/Service12.jpg">
+    </div>
+  </div>
+</div> 
+<div class="col-2">
+  <% for service in @service %> 
+    <strong><h3><%= service.header %></h3></strong>
+    <br/>
+    <div class="prod_description">
+      <p><%= sanitize(redcloth(service.description)) %></p><br/>
+    </div>
+  <% end %>
+</div>
